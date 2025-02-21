@@ -26,28 +26,6 @@
     --ring: 240 4.9% 83.9%;
     --radius: 1rem;
   }
-
-  .light {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 252 100% 69%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-  }
 }
 
 @layer base {
@@ -70,5 +48,24 @@
 
   .nav-link {
     @apply px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-primary/20;
+  }
+
+  .text-gradient-primary {
+    @apply bg-gradient-to-br from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .animate-shimmer {
+    animation: shimmer 8s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
   }
 }

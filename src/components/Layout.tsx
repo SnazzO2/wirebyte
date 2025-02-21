@@ -1,19 +1,13 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = React.useState("dark");
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-    document.documentElement.classList.toggle("light");
-  };
 
   const navigationLinks = [
     { name: "Home", path: "/" },
@@ -48,12 +42,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   {link.name}
                 </Link>
               ))}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg hover:bg-primary/20 transition-colors"
-              >
-                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
             </div>
 
             {/* Mobile Menu Button */}

@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useCallback } from "react";
 import Particles from "@tsparticles/react";
@@ -59,8 +58,8 @@ const Index = () => {
       <Particles
         id="tsparticles"
         className="absolute inset-0 -z-10"
-        particlesInit={particlesInit}
-        particlesLoaded={particlesLoaded}
+        init={particlesInit}
+        loaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
