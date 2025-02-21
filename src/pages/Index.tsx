@@ -1,9 +1,10 @@
+
 import { motion } from "framer-motion";
 import { useCallback } from "react";
 import Particles from "@tsparticles/react";
 import type { Container, Engine } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import { Download, Users, Gamepad2, Star } from "lucide-react";
+import { Users, Gamepad2, Star } from "lucide-react";
 
 const Index = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -14,14 +15,26 @@ const Index = () => {
     console.log("Particles container loaded", container);
   }, []);
 
-  const handleDownload = () => {
-    const element = document.createElement("a");
-    element.href = "/wirebyte-site.zip";
-    element.download = "wirebyte-site.zip";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
+  const games = [
+    {
+      title: "Project Capybaras",
+      description: "A spine-chilling single-player experience inspired by Five Nights at Freddy's.",
+      icon: "🐹",
+      status: "Released"
+    },
+    {
+      title: "Project Capybaras Revolver",
+      description: "An exciting multiplayer AU project expanding the Capybaras universe.",
+      icon: "🔫",
+      status: "In Development"
+    },
+    {
+      title: "Quab",
+      description: "A mind-bending puzzle game inspired by Portal. Test your wit and creativity.",
+      icon: "🌀",
+      status: "Coming Soon"
+    }
+  ];
 
   const features = [
     {
@@ -42,12 +55,12 @@ const Index = () => {
   ];
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-[#1A1F2C]">
       <Particles
         id="tsparticles"
         className="absolute inset-0 -z-10"
-        init={async (engine) => await loadSlim(engine)}
-        loaded={particlesLoaded}
+        particlesInit={particlesInit}
+        particlesLoaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
@@ -157,15 +170,6 @@ const Index = () => {
             >
               Meet Our Team
             </motion.a>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleDownload}
-              className="glass-card px-8 py-4 font-semibold flex items-center justify-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download Site
-            </motion.button>
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -178,6 +182,28 @@ const Index = () => {
             </motion.a>
           </div>
 
+          <div className="mb-24">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gradient-primary">Our Games</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {games.map((game, index) => (
+                <motion.div
+                  key={game.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="glass-card p-8 text-center group hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="text-4xl mb-4">{game.icon}</div>
+                  <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-primary transition-colors">{game.title}</h3>
+                  <p className="text-muted-foreground mb-4">{game.description}</p>
+                  <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-primary/20 text-primary">
+                    {game.status}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {features.map((feature, index) => (
               <motion.div
@@ -185,7 +211,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6 text-center"
+                className="glass-card p-6 text-center hover:bg-white/5 transition-all duration-300"
               >
                 <div className="flex justify-center mb-4">
                   {feature.icon}
