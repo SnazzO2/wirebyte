@@ -1,13 +1,17 @@
 
 import { motion } from "framer-motion";
 import { useCallback } from "react";
-import Particles from "react-particles";
-import type { Engine } from "tsparticles-engine";
-import { loadFull } from "tsparticles";
+import Particles from "@tsparticles/react";
+import type { Container, Engine } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
 
 const Index = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
+    await loadSlim(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async (container: Container | undefined) => {
+    console.log("Particles container loaded", container);
   }, []);
 
   return (
@@ -15,19 +19,30 @@ const Index = () => {
       <Particles
         id="tsparticles"
         init={particlesInit}
+        loaded={particlesLoaded}
         options={{
           background: {
-            opacity: 0,
+            color: {
+              value: "transparent",
+            },
           },
           fpsLimit: 120,
           interactivity: {
             events: {
+              onClick: {
+                enable: true,
+                mode: "push",
+              },
               onHover: {
                 enable: true,
                 mode: "repulse",
               },
+              resize: true,
             },
             modes: {
+              push: {
+                quantity: 4,
+              },
               repulse: {
                 distance: 100,
                 duration: 0.4,
@@ -46,6 +61,7 @@ const Index = () => {
               width: 1,
             },
             move: {
+              direction: "none",
               enable: true,
               outModes: {
                 default: "bounce",
