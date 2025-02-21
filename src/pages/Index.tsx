@@ -79,7 +79,7 @@ const Index = () => {
             number: {
               density: {
                 enable: true,
-                value_area: 800,
+                area: 800,
               },
               value: 80,
             },
@@ -87,7 +87,10 @@ const Index = () => {
               animation: {
                 enable: true,
                 speed: 0.5,
-                minimumValue: 0.1,
+                minimize: {
+                  enable: true,
+                  value: 0.1,
+                },
               },
               value: 0.5,
             },
