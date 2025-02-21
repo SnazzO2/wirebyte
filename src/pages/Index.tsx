@@ -1,6 +1,46 @@
-
 import { motion } from "framer-motion";
 import { Users, Gamepad2, Star } from "lucide-react";
+
+const Bubble = ({ delay = 0, size = "small" }: { delay?: number; size?: "small" | "medium" | "large" }) => {
+  const sizeClasses = {
+    small: "w-4 h-4",
+    medium: "w-8 h-8",
+    large: "w-12 h-12"
+  };
+
+  return (
+    <motion.div
+      className={`absolute rounded-full bg-white/10 backdrop-blur-sm ${sizeClasses[size]}`}
+      initial={{ y: "120vh", opacity: 0 }}
+      animate={{
+        y: "-20vh",
+        opacity: [0, 1, 1, 0],
+        x: ["0vw", "10vw", "-10vw", "0vw"]
+      }}
+      transition={{
+        duration: 15,
+        delay,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+    />
+  );
+};
+
+const FloatingBubbles = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      <Bubble delay={0} size="small" />
+      <Bubble delay={2} size="medium" />
+      <Bubble delay={4} size="large" />
+      <Bubble delay={6} size="small" />
+      <Bubble delay={8} size="medium" />
+      <Bubble delay={10} size="small" />
+      <Bubble delay={12} size="large" />
+      <Bubble delay={14} size="medium" />
+    </div>
+  );
+};
 
 const Index = () => {
   const games = [
@@ -64,10 +104,11 @@ const Index = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#111827]">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#111827] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent)] pointer-events-none" />
-
-      <div className="container mx-auto px-4 py-24">
+      <FloatingBubbles />
+      
+      <div className="container mx-auto px-4 py-24 relative">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -75,14 +116,26 @@ const Index = () => {
           className="text-center"
         >
           <motion.div
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-8 relative"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
+            <motion.div
+              className="absolute inset-0 bg-primary/20 blur-2xl rounded-full"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
             <motion.img
               src="/lovable-uploads/0a0c8951-1d32-4201-bea5-c230c96fa8d2.png"
               alt="Wirebyte Logo"
-              className="w-24 h-24 md:w-32 md:h-32"
+              className="w-24 h-24 md:w-32 md:h-32 relative"
               initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, type: "spring" }}
@@ -108,32 +161,44 @@ const Index = () => {
             variants={itemVariants}
           >
             <motion.a
-              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(139,92,246,0.3)" }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="/about"
-              className="glass-card px-8 py-4 font-semibold"
+              className="glass-card px-8 py-4 font-semibold backdrop-blur-lg border border-white/10 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
             >
               Meet Our Team
             </motion.a>
             <motion.a
-              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(139,92,246,0.3)" }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="https://boosty.to/wirebyteinteractive"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-primary text-white px-8 py-4 rounded-2xl font-semibold hover:bg-primary/90 transition-colors"
+              className="bg-primary/80 backdrop-blur-lg text-white px-8 py-4 rounded-2xl font-semibold hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.2)] border border-white/10"
             >
               Support Us
             </motion.a>
           </motion.div>
 
           <motion.div
-            className="mb-24"
+            className="mb-24 relative"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
+            <motion.div
+              className="absolute inset-0 bg-primary/5 blur-3xl rounded-full"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
             <motion.h2
               className="text-3xl md:text-4xl font-bold mb-12 text-gradient-primary"
               variants={itemVariants}
@@ -171,7 +236,7 @@ const Index = () => {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto relative"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -185,7 +250,7 @@ const Index = () => {
                   scale: 1.05,
                   transition: { type: "spring", stiffness: 300 }
                 }}
-                className="glass-card p-6 text-center hover:bg-white/5 transition-all duration-300"
+                className="glass-card p-6 text-center hover:bg-white/5 transition-all duration-300 backdrop-blur-lg border border-white/10 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
               >
                 <motion.div
                   className="flex justify-center mb-4"
