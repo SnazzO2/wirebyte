@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useCallback } from "react";
 import Particles from "@tsparticles/react";
@@ -46,8 +45,9 @@ const Index = () => {
     <div className="relative min-h-screen">
       <Particles
         id="tsparticles"
-        particlesInit={particlesInit}
-        particlesLoaded={particlesLoaded}
+        className="absolute inset-0 -z-10"
+        init={async (engine) => await loadSlim(engine)}
+        loaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
@@ -122,7 +122,6 @@ const Index = () => {
           },
           detectRetina: true,
         }}
-        className="absolute inset-0 -z-10"
       />
 
       <div className="container mx-auto px-4 py-24">
