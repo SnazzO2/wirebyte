@@ -46,8 +46,8 @@ const Index = () => {
     <div className="relative min-h-screen">
       <Particles
         id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
+        particlesInit={particlesInit}
+        particlesLoaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
