@@ -1,5 +1,6 @@
 
 import { motion } from "framer-motion";
+import { FloatingBubbles } from "../components/Bubbles";
 
 const News = () => {
   const containerVariants = {
@@ -24,8 +25,9 @@ const News = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#111827]">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#111827] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent)] pointer-events-none" />
+      <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12">
         <motion.div
@@ -48,8 +50,20 @@ const News = () => {
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 300 }
               }}
-              className="glass-card p-6"
+              className="glass-card p-6 backdrop-blur-lg border border-white/10 shadow-[0_0_15px_rgba(139,92,246,0.1)]"
             >
+              <motion.div
+                className="absolute inset-0 bg-primary/5 blur-3xl rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
               <p className="text-sm text-primary mb-2">Coming Soon</p>
               <h2 className="text-2xl font-bold mb-2 text-gradient-primary">Stay Tuned!</h2>
               <p className="text-muted-foreground">
