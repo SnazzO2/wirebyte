@@ -21,6 +21,7 @@ const Index = () => {
         init={particlesInit}
         loaded={particlesLoaded}
         options={{
+          fullScreen: false,
           background: {
             color: {
               value: "transparent",
@@ -35,29 +36,34 @@ const Index = () => {
               },
               onHover: {
                 enable: true,
-                mode: "repulse",
+                mode: "bubble",
               },
-              resize: true,
+              resize: {
+                enable: true,
+                delay: 0.5,
+              },
             },
             modes: {
               push: {
                 quantity: 4,
               },
-              repulse: {
-                distance: 100,
-                duration: 0.4,
+              bubble: {
+                distance: 200,
+                duration: 2,
+                opacity: 0.8,
+                size: 20,
               },
             },
           },
           particles: {
             color: {
-              value: "#8B5CF6",
+              value: ["#8B5CF6", "#4F46E5", "#ffffff"],
             },
             links: {
               color: "#8B5CF6",
               distance: 150,
               enable: true,
-              opacity: 0.5,
+              opacity: 0.3,
               width: 1,
             },
             move: {
@@ -73,11 +79,16 @@ const Index = () => {
             number: {
               density: {
                 enable: true,
-                area: 800,
+                value_area: 800,
               },
               value: 80,
             },
             opacity: {
+              animation: {
+                enable: true,
+                speed: 0.5,
+                minimumValue: 0.1,
+              },
               value: 0.5,
             },
             shape: {
@@ -99,6 +110,16 @@ const Index = () => {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
+          <div className="flex justify-center mb-8">
+            <motion.img
+              src="/lovable-uploads/0a0c8951-1d32-4201-bea5-c230c96fa8d2.png"
+              alt="Wirebyte Logo"
+              className="w-24 h-24 md:w-32 md:h-32"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-shimmer bg-clip-text text-transparent bg-[linear-gradient(110deg,#8B5CF6,45%,#4F46E5,55%,#8B5CF6)] bg-[length:200%_100%]">
             Wirebyte Interactive
           </h1>

@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-2">
               <img
-                src="/placeholder.svg"
+                src="/lovable-uploads/0a0c8951-1d32-4201-bea5-c230c96fa8d2.png"
                 alt="Wirebyte Logo"
                 className="h-8 w-8"
               />
