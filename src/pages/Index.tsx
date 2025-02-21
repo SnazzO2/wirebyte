@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import Particles from "@tsparticles/react";
 import type { Container, Engine } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
+import { Download, Users, Gamepad2, Star } from "lucide-react";
 
 const Index = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -13,6 +14,33 @@ const Index = () => {
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
     console.log("Particles container loaded", container);
   }, []);
+
+  const handleDownload = () => {
+    const element = document.createElement("a");
+    element.href = "/wirebyte-site.zip";
+    element.download = "wirebyte-site.zip";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const features = [
+    {
+      icon: <Gamepad2 className="w-8 h-8 text-primary" />,
+      title: "Engaging Games",
+      description: "Experience thrilling gameplay with our meticulously crafted Roblox games."
+    },
+    {
+      icon: <Users className="w-8 h-8 text-primary" />,
+      title: "Active Community",
+      description: "Join our vibrant community of players and developers."
+    },
+    {
+      icon: <Star className="w-8 h-8 text-primary" />,
+      title: "Regular Updates",
+      description: "Enjoy frequent content updates and new features in our games."
+    }
+  ];
 
   return (
     <div className="relative min-h-screen">
@@ -38,10 +66,7 @@ const Index = () => {
                 enable: true,
                 mode: "bubble",
               },
-              resize: {
-                enable: true,
-                delay: 0.5,
-              },
+              resize: true,
             },
             modes: {
               push: {
@@ -79,19 +104,10 @@ const Index = () => {
             number: {
               density: {
                 enable: true,
-                area: 800,
               },
               value: 80,
             },
             opacity: {
-              animation: {
-                enable: true,
-                speed: 0.5,
-                minimize: {
-                  enable: true,
-                  value: 0.1,
-                },
-              },
               value: 0.5,
             },
             shape: {
@@ -130,7 +146,7 @@ const Index = () => {
             Creating incredible gaming experiences on Roblox
           </p>
           
-          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 mb-16">
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -139,6 +155,15 @@ const Index = () => {
             >
               Meet Our Team
             </motion.a>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleDownload}
+              className="glass-card px-8 py-4 font-semibold flex items-center justify-center gap-2"
+            >
+              <Download className="w-5 h-5" />
+              Download Site
+            </motion.button>
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -149,6 +174,24 @@ const Index = () => {
             >
               Support Us
             </motion.a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="glass-card p-6 text-center"
+              >
+                <div className="flex justify-center mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
